@@ -22,6 +22,13 @@ kubectl create -f ./pod.yaml
 
 ```
 
+## Restart pod
+
+``` bash
+kubectl delete pod github-action-pod -n a-team
+kubectl apply -f ./kube/pod.yaml
+```
+
 ## Check the pod
 
 ``` bash

@@ -18,10 +18,10 @@ spec:
         fieldRef:
           fieldPath: metadata.namespace
     volumeMounts:
-    - name: config-volume
+    - name: ctf-config
       mountPath: /etc/ctf/config
       subPath: config-file
   volumes:
-  - name: config-volume
+  - name: ctf-config
     configMap:
-      name: my-config-map
+      name: ctf-configmap
