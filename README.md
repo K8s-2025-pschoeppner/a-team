@@ -10,3 +10,11 @@ export KUBECONFIG=~/.kube/config1
 
 kubectl cluster-info
 ```
+
+
+``` bash
+kubectl delete -f ./pod.yaml
+
+kubectl create -f ./pod.yaml
+
+```
