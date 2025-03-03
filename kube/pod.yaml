@@ -17,5 +17,3 @@ spec:
       valueFrom:
         fieldRef:
           fieldPath: metadata.namespace
-  imagePullSecrets:
-  - name: github-registry-creds
