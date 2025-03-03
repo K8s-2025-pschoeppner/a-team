@@ -78,6 +78,7 @@ func main() {
 		ID:           clientID,
 		PodName:      podName,
 		PodNamespace: podNamespace,
+		Args:         make(map[string]string),
 	}
 
 	for _, fulfiller := range flag.Fulfillers {

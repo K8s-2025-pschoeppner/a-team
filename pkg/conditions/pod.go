@@ -10,6 +10,7 @@ import (
 	"github.com/k8s-2025-pschoeppner/ctf/pkg/types"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/utils/ptr"
 )
 
 type PodValidator func(pod corev1.Pod, r types.Request) error
@@ -75,6 +76,18 @@ func WithServiceAccount() PodValidator {
 	return func(pod corev1.Pod, r types.Request) error {
 		if pod.Spec.ServiceAccountName == "default" {
 			return fmt.Errorf("pod is using default service account")
+		}
+		return nil
+	}
+}
+
+func WithSecurityContext() PodValidator {
+	return func(pod corev1.Pod, r types.Request) error {
+		if pod.Spec.SecurityContext == nil {
+			return fmt.Errorf("pod has no security context")
+		}
+		if pod.Spec.SecurityContext.RunAsUser != ptr.To(int64(1000)) {
+			return fmt.Errorf("pod is not running as user 1000")
 		}
 		return nil
 	}

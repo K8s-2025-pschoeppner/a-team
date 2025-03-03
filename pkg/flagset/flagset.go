@@ -46,6 +46,10 @@ func NewFlagSet(client kubernetes.Interface, logger *slog.Logger) FlagSet {
 			flags.WithFulfillers(
 				conditions.ReadFromExternalConfigMap("ctf-configmap"),
 			)),
+		"SecurityContext": flags.NewFlag("SecurityContext", client, logger,
+			flags.WithValidators(
+				conditions.PodValidators(conditions.WithSecurityContext()),
+			)),
 	}
 }
 
