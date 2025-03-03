@@ -1,7 +1,7 @@
 # ctf
 Capture the flag client and server for Kubernetes
 
-```bash
+``` bash
 mkdir -p ~/.kube
 nano ~/.kube/config1
 
