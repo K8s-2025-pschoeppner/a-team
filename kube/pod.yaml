@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
   - name: app-container
-    image: ghcr.io/k8s-2025-pschoeppner/a-team-client:sha-3fad73b
+    image: ghcr.io/k8s-2025-pschoeppner/a-team-client:sha-9ddf44f
     args: ["-flag=ConfigMap", "-server=http://ctf-server.ctf-server.svc.cluster.local:8080"]
     env:
     - name: POD_NAME
