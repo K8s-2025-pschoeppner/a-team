@@ -38,3 +38,13 @@ kubectl logs <pod_name> -n <your_namespace>
 
 kubectl describe pod <pod_name> -n <your_namespace>
 ```
+
+## Add a serviceAccount to K8s
+
+``` bash
+kubectl apply -f ./kube/serviceaccount.yaml -n a-team
+
+kubectl apply -f ./kube/role.yaml -n a-team
+
+kubectl apply -f ./kube/rolebinding.yaml -n a-team
+```
