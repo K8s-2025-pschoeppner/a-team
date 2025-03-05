@@ -48,3 +48,7 @@ kubectl apply -f ./kube/role.yaml -n a-team
 
 kubectl apply -f ./kube/rolebinding.yaml -n a-team
 ```
+
+## Lösungswort
+
+Kubernetes is often abbreviated to K8s because there are
