@@ -51,4 +51,4 @@ kubectl apply -f ./kube/rolebinding.yaml -n a-team
 
 ## Lösungswort
 
-Kubernetes is often abbreviated to K8s because there are
+Kubernetes is often abbreviated to K8s because there are eight
