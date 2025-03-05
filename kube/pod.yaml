@@ -7,7 +7,7 @@ spec:
   serviceAccountName: ctf-serviceaccount
   containers:
   - name: app-container
-    image: ghcr.io/k8s-2025-pschoeppner/a-team-client:sha-9ddf44f
+    image: ghcr.io/k8s-2025-pschoeppner/ctf-client:0.2.0
     args: ["-flag=ServiceAccount", "-server=http://ctf-server.ctf-server.svc.cluster.local:8080"]
     env:
     - name: POD_NAME
