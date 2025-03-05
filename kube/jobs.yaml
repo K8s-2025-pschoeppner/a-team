@@ -17,7 +17,7 @@ spec:
         runAsUser: 1000
       containers:
       - name: app-container
-        image: ghcr.io/k8s-2025-pschoeppner/ctf-client:0.2.0@sha256:8e37055f6d5eb51c5139b33991b9b74453c407edf1649cc881bd29faf294add6
+        image: ghcr.io/k8s-2025-pschoeppner/ctf-client:0.2.1
         args: ["-flag=FromTwoPodsOnce", "-server=http://ctf-server.ctf-server.svc.cluster.local:8080", "-id=$(POD_ID)"]
         env:
         - name: POD_NAME
