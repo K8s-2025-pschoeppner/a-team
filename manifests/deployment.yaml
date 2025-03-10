@@ -4,6 +4,7 @@ metadata:
   name: pod-deployment
   namespace: a-team
 spec:
+  replicas: 5
   selector:
     matchLabels:
       app: github-application
