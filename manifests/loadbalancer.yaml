@@ -1,12 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: a-team-loadbalancer
+  name: ingress-nginx-controller
   namespace: a-team
 spec:
   type: LoadBalancer
-  selector:
-    app: github-application
   ports:
   - port: 80
-    targetPort: 9898
+    targetPort: 80
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: 443
+    protocol: TCP
+    name: https
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/instance: ingress-nginx

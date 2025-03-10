@@ -1,0 +1,32 @@
+# Zuerst einen ClusterIP-Service für das Deployment erstellen
+apiVersion: v1
+kind: Service
+metadata:
+  name: a-team-clusterip
+  namespace: a-team
+spec:
+  type: ClusterIP
+  selector:
+    app: github-application
+  ports:
+  - port: 80
+    targetPort: 9898
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: a-team-ingress
+  namespace: a-team
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: deine-anwendung.beispiel.com  # Optional
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: a-team-clusterip
+            port:
+              number: 80
