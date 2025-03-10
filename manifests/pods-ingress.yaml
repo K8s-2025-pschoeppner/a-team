@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: github-app-service
+  namespace: a-team
+spec:
+  selector:
+    app: github-application  # Wählt Ihre vorhandenen Pods mit diesem Label aus
+  ports:
+  - port: 80
+    targetPort: 9898  # podinfo hört standardmäßig auf Port 9898
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: github-app-ingress
+  namespace: a-team
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx  # Verwendet die IngressClass des Controllers
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: github-app-service
+            port:
+              number: 80
