@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-deployment
+  namespace: a-team
+spec:
+  selector:
+    matchLabels:
+      app: github-application
+  template:
+    metadata:
+      labels:
+        app: github-application
+    spec:
+      securityContext:
+        runAsUser: 1000
+      containers:
+      - name: app-container
+        image: ghcr.io/stefanprodan/podinfo
