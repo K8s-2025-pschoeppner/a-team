@@ -1,0 +1,19 @@
+# Ingress-Ressource für Podinfo
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: podinfo-ingress
+  namespace: a-team
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: a-team.k8s.schoeppi5.de
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: a-podinfo
+            port:
+              number: 80
