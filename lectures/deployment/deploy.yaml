@@ -5,6 +5,11 @@ metadata:
   namespace: a-team
 spec:
   replicas: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 50%
+      maxSurge: 1
   selector:
     matchLabels:
       app: a-podinfo
@@ -13,7 +18,6 @@ spec:
       labels:
         app: a-podinfo
     spec:
-      # Entferne jegliche requiredDuringSchedulingIgnoredDuringExecution Anti-Affinity
       topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
@@ -23,7 +27,6 @@ spec:
             app: a-podinfo
       affinity:
         podAntiAffinity:
-          # Nur preferred verwenden, nicht required
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
             podAffinityTerm:
@@ -33,7 +36,7 @@ spec:
                   operator: In
                   values:
                   - a-podinfo
-              topologyKey: "kubernetes.io/hostname"
+              topologyKey: kubernetes.io/hostname
       securityContext:
         runAsUser: 1000
       containers:
