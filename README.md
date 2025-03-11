@@ -29,10 +29,14 @@ kubectl delete pod github-action-pod -n a-team
 kubectl apply -f ./kube/pod.yaml
 ```
 
-## Check the pod
+## Check the cluster
 
 ``` bash
 kubectl get pods -n <your_namespace>
+
+kubectl get svc -n <your_namespace>
+
+kubectl get ing -n <your_namespace>
 
 kubectl logs <pod_name> -n <your_namespace>
 
