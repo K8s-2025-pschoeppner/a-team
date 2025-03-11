@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: a-podinfo-green
+  namespace: a-team
+spec:
+  selector:
+    app: a-podinfo-green
+    version: green
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 9898
+  type: ClusterIP
