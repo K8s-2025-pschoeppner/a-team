@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: github-action-pod
+  namespace: a-team
+spec:
+  serviceAccountName: ctf-serviceaccount
+  securityContext:
+    runAsUser: 1000
+  containers:
+  - name: app-container
+    image: ghcr.io/k8s-2025-pschoeppner/ctf-client:0.2.0@sha256:8e37055f6d5eb51c5139b33991b9b74453c407edf1649cc881bd29faf294add6
+    args: ["-flag=SecurityContext", "-server=http://ctf-server.ctf-server.svc.cluster.local:8080"]
+    env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: POD_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+    volumeMounts:
+    - name: ctf-config
+      mountPath: /etc/ctf/config
+      subPath: config-file
+  volumes:
+  - name: ctf-config
+    configMap:
+      name: ctf-configmap
