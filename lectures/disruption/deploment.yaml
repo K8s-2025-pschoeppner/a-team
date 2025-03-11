@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-deployment
+  namespace: a-team
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: github-application
+  template:
+    metadata:
+      labels:
+        app: github-application
+    spec:
+      # Entferne jegliche requiredDuringSchedulingIgnoredDuringExecution Anti-Affinity
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: github-application
+      affinity:
+        podAntiAffinity:
+          # Nur preferred verwenden, nicht required
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - github-application
+              topologyKey: "kubernetes.io/hostname"
+      securityContext:
+        runAsUser: 1000
+      containers:
+      - name: app-container
+        image: ghcr.io/stefanprodan/podinfo
