@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: a-podinfo-green
+  namespace: a-team
+  labels:
+    app: a-podinfo
+    version: green
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: a-podinfo
+      version: green
+  template:
+    metadata:
+      labels:
+        app: a-podinfo
+        version: green
+    spec:
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: a-podinfo
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - a-podinfo
+              topologyKey: kubernetes.io/hostname
+      securityContext:
+        runAsUser: 1000
+      containers:
+      - name: app-container
+        image: ghcr.io/stefanprodan/podinfo:6.7.1
