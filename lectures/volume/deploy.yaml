@@ -38,8 +38,9 @@ spec:
                   - a-podinfo
               topologyKey: kubernetes.io/hostname
       securityContext:
-        runAsUser: 1000
         fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
       containers:
       - name: app-container
         image: ghcr.io/stefanprodan/podinfo
@@ -49,4 +50,4 @@ spec:
       volumes:
       - name: mein-daten-volume
         persistentVolumeClaim:
-          claimName: a-team-pvc-2
+          claimName: a-team-pvc-7
